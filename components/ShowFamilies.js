@@ -76,7 +76,7 @@ const ShowFamilies = ({families}) => {
             {dataArray&&dataArray.map((family) => (
               <TableRow key={family.Id} sx={{position: 'relative'}}>
                 <TableCell>
-                  <UpdateAndDeleteIcons id={family.Fcode} data={dataArray} setData={setDataArray} url={`https://fee-management-system.vercel.app/api/family/deletefamily?id=${family.Fcode}`} setIsLoading={setIsLoading}/>
+                  <UpdateAndDeleteIcons id={family.Fcode} data={dataArray} setData={setDataArray} url={`https://management-delta.vercel.app/api/family/deletefamily?id=${family.Fcode}`} setIsLoading={setIsLoading}/>
                 </TableCell>
                 <TableCell>
                   <Typography fontSize="15px" fontWeight={500}>

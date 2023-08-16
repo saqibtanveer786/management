@@ -16,12 +16,13 @@ import Alerts from '@/components/Alert';
 
 // Getting families 
 async function fetchFamilies() {
-  const url = `https://fee-management-system.vercel.app/api/family/getallfamilies`
+  const url = `https://management-delta.vercel.app/api/family/getallfamilies`
   const families = await fetch(url,{
     cache: 'no-store',
     method: 'Post',
     headers: {
-      'content-type': 'application/json'
+      'content-type': 'application/json',
+      "Access-Control-Allow-Origin": "*" ,
     }
   })
   const jsonFamilies = await families.json()
@@ -29,12 +30,13 @@ async function fetchFamilies() {
 }
 
 async function fetchStudents() {
-  const url = `https://fee-management-system.vercel.app/api/getallstudents`
+  const url = `https://management-delta.vercel.app/api/getallstudents`
   const families = await fetch(url,{
     cache: 'no-store',
     method: 'Post',
     headers: {
-      'content-type': 'application/json'
+      'content-type': 'application/json',
+      "Access-Control-Allow-Origin": "*" ,
     }
   })
   const jsonFamilies = await families.json()

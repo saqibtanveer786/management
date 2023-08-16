@@ -7,13 +7,14 @@ export const revalidate = 0
 
 // Fetching students function
 async function getAllStudents() {
-  const url = `https://fee-management-system.vercel.app/api/getallstudents`
+  const url = `https://management-delta.vercel.app/api/getallstudents`
   const students = await fetch(url, {
     next: { revalidate: 0 },
     cache: 'no-store',
     method: 'post',
     headers: {
       "Content-Type": 'application/json',
+      "Access-Control-Allow-Origin": "*" ,
     }
   })
   const jsonStudents = await students.json()

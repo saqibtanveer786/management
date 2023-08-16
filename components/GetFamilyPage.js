@@ -46,11 +46,12 @@ export default function GetFamilyPage() {
     async function getFamily(e) {
         e.preventDefault()
         setIsLoading(true)
-        const url = `https://fee-management-system.vercel.app/api/family/getfamily?fcode=${Fcode}`
+        const url = `https://management-delta.vercel.app/api/family/getfamily?fcode=${Fcode}`
         const family = await fetch(url, {
             method: 'get',
             headers: {
-                "Content-Type": 'application/json'
+                "Content-Type": 'application/json',
+                "Access-Control-Allow-Origin": "*" ,
             },
         })
         const jsonFamily = await family.json()
@@ -89,7 +90,7 @@ export default function GetFamilyPage() {
         `)
         if(conf){
             setIsLoading(true)
-        const url = `https://fee-management-system.vercel.app/api/family/updatefamily`
+        const url = `https://management-delta.vercel.app/api/family/updatefamily`
         const response = await fetch(url, {
             method: 'put',
             headers: {

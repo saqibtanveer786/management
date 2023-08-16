@@ -4,13 +4,13 @@ import ShowFamilies from '@/components/ShowFamilies';
 export const revalidate = 0
 
 async function fetchFamilies() {
-  const url = `https://fee-management-system.vercel.app/api/family/getallfamilies`
+  const url = `https://management-delta.vercel.app/api/family/getallfamilies`
   const families = await fetch(url,{
-    next: { revalidate: 0 },
     cache: 'no-store',
     method: 'post',
     headers: {
       "Content-Type": 'application/json',
+      "Access-Control-Allow-Origin": "*" ,
     }
   })
   const jsonFamilies = await families.json()

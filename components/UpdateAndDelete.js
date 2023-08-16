@@ -11,7 +11,8 @@ async function deleteItem(url) {
   const deleteItem = await fetch(url, {
     method: 'delete',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      "Access-Control-Allow-Origin": "*" ,
     }
   })
   const jsonResponse = await deleteItem.json()

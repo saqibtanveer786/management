@@ -29,12 +29,16 @@ const Item = styled(Paper)(({ theme }) => ({
 import { useState } from 'react';
 import Loader from '@/components/Loader';
 import { parseInt } from 'lodash';
+import Alerts from '@/components/Alert';
 
 
 // Main function
 const AddStudent = () => {
   let [ data, setData] = useState({})
   const [ isLoading, setIsLoading] = useState(false)
+  const [showAlert, setShowAlert] = useState(false)
+  const [alertSeverity, setAlertSeverity] = useState()
+  const [alertMessage, setAlertMessage] = useState('')
 
   function getData(e) {
     e.preventDefault()
@@ -46,20 +50,37 @@ const AddStudent = () => {
 
   // Function for adding student
   async function addStudent() {
-    const url = `https://fee-management-system.vercel.app/api/addstudent`
+    const url = `https://management-delta.vercel.app/api/addstudent`
     setIsLoading(true)
     const response = await fetch(url, {
       cache: 'no-cache',
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
+        "Access-Control-Allow-Origin": "*" ,
       },
       body: JSON.stringify(data)
     })
     setIsLoading(false)
+    console.log(response)
     const jsonResponse = await response.json()
     setData({})
+    if(response.ok){
+      setShowAlert(true)
+      setAlertMessage(jsonResponse.message)
+      setAlertSeverity('success')
+      setTimeout(() => {
+          setShowAlert(false)
+      }, 2000);
+    }
+    if(!response.ok){
+      setShowAlert(true)
+      setAlertMessage(jsonResponse.message)
+      setAlertSeverity('error')
+      setTimeout(() => {
+          setShowAlert(false)
+      }, 2000);
+    }
   }
 
     return (
@@ -67,6 +88,7 @@ const AddStudent = () => {
       <Grid container spacing={3}>
         <Grid item xs={12} lg={12}>
           <BaseCard title="Add Student">
+            <Alerts severity={alertSeverity} message={alertMessage} showAlert={showAlert}/>
             <Loader isLoading={isLoading} message={'Adding Student . . . . .'}/>
             <>
             <Stack spacing={3}>
