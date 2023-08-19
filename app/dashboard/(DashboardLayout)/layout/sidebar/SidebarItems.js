@@ -1,5 +1,5 @@
 import React from "react";
-import {HomeItems, AddmissionItems, ViewItems, SubmitfeeItems} from "./MenuItems";
+import {HomeItems, AddmissionItems, ViewItems,AttendenceItems, SubmitfeeItems} from "./MenuItems";
 import { usePathname } from "next/navigation";
 import { Box, List, Typography } from "@mui/material";
 import NavItem from "./NavItem";
@@ -65,6 +65,29 @@ const SidebarItems = ({ toggleMobileSidebar }) => {
           View
         </Typography>
         {ViewItems.map((item) => {
+          // {/********SubHeader**********/}
+          // if (item.subheader) {
+          //   return <NavGroup item={item} key={item.subheader} />;
+
+          //   // {/********If Sub Menu**********/}
+          //   /* eslint no-else-return: "off" */
+          // } else {
+            return (
+              <>
+              <NavItem
+                item={item}
+                key={item.id}
+                pathDirect={pathDirect}
+                onClick={toggleMobileSidebar}
+              />
+              </>
+            );
+          
+        })}
+        <Typography sx={{paddingBlock: 2}}>
+          Attendence
+        </Typography>
+        {AttendenceItems.map((item) => {
           // {/********SubHeader**********/}
           // if (item.subheader) {
           //   return <NavGroup item={item} key={item.subheader} />;

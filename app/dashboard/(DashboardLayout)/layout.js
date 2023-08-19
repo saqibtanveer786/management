@@ -36,19 +36,19 @@ export default function RootLayout({
   const [isSidebarOpen, setSidebarOpen] = useState(true);
   const [isMobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   return (
-    <MainWrapper className="mainwrapper">
+    <div>
       {/* ------------------------------------------- */}
       {/* Sidebar */}
       {/* ------------------------------------------- */}
-      <Sidebar
+      {/* <Sidebar
         isSidebarOpen={isSidebarOpen}
         isMobileSidebarOpen={isMobileSidebarOpen}
         onSidebarClose={() => setMobileSidebarOpen(false)}
-      />
+      /> */}
       {/* ------------------------------------------- */}
       {/* Main Wrapper */}
       {/* ------------------------------------------- */}
-      <PageWrapper className="page-wrapper">
+      <div>
         {/* ------------------------------------------- */}
         {/* Header */}
         {/* ------------------------------------------- */}
@@ -75,7 +75,7 @@ export default function RootLayout({
           {/* ------------------------------------------- */}
           <Footer />
         </Container>
-      </PageWrapper>
-    </MainWrapper>
+      </div>
+    </div>
   );
 }

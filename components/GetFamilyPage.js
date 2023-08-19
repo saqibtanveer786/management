@@ -46,7 +46,7 @@ export default function GetFamilyPage() {
     async function getFamily(e) {
         e.preventDefault()
         setIsLoading(true)
-        const url = `https://management-delta.vercel.app/api/family/getfamily?fcode=${Fcode}`
+        const url = `http://localhost:3000/api/family/getfamily?fcode=${Fcode}`
         const family = await fetch(url, {
             method: 'get',
             headers: {
@@ -90,7 +90,7 @@ export default function GetFamilyPage() {
         `)
         if(conf){
             setIsLoading(true)
-        const url = `https://management-delta.vercel.app/api/family/updatefamily`
+        const url = `http://localhost:3000/api/family/updatefamily`
         const response = await fetch(url, {
             method: 'put',
             headers: {

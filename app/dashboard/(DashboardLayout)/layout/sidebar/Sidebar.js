@@ -24,7 +24,7 @@ const Sidebar = ({
         {/* ------------------------------------------- */}
         <Drawer
           anchor="left"
-          open={isSidebarOpen}
+          open={false}
           variant="permanent"
           PaperProps={{
             sx: {

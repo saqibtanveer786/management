@@ -7,8 +7,9 @@ const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 const SalesOverview = () => {
   const theme = useTheme();
-  const primary = theme.palette.primary.main;
-  const secondary = theme.palette.secondary.main;
+  const success = theme.palette.success.main;
+  const error = theme.palette.error.main;
+  const warning = theme.palette.warning.main;
 
   const optionssalesoverview = {
     grid: {
@@ -30,7 +31,7 @@ const SalesOverview = () => {
       },
     },
 
-    colors: [primary, secondary],
+    colors: [success, error, warning],
     fill: {
       type: "solid",
       opacity: 1,
@@ -53,23 +54,21 @@ const SalesOverview = () => {
       size: 0,
     },
     legend: {
-      show: false,
+      show: true,
     },
     xaxis: {
       type: "category",
       categories: [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "July",
-        "Aug",
-        "Sept",
-        "Oct",
-        "Nov",
-        "Dec",
+        "Grade-1",
+        "Grade-2",
+        "Grade-3",
+        "Grade-4",
+        "Grade-5",
+        "Grade-6",
+        "Grade-7",
+        "Grade-8",
+        "Grade-9",
+        "Grade-10",
       ],
       labels: {
         style: {
@@ -79,9 +78,9 @@ const SalesOverview = () => {
     },
     yaxis: {
       show: true,
-      min: 100,
-      max: 400,
-      tickAmount: 3,
+      min: 0,
+      max: 50,
+      tickAmount: 10,
       labels: {
         style: {
           cssClass: "grey--text lighten-2--text fill-color",
@@ -95,21 +94,21 @@ const SalesOverview = () => {
       colors: ["transparent"],
     },
     tooltip: {
-      // theme: "dark",
+      theme: "dark",
     },
   };
   const seriessalesoverview = [
     {
-      name: "Ample Admin",
-      data: [355, 390, 300, 350, 390, 180, 355, 390, 300, 350, 390, 180],
+      name: "Presents",
+      data: [47, 47, 47, 47, 47, 47, 47, 47, 47, 47],
     },
     {
-      name: "Pixel Admin",
-      data: [280, 250, 325, 215, 250, 310, 280, 250, 325, 215, 250, 310],
+      name: "Apsents",
+      data: [9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
     },
     {
-      name: "Saqib",
-      data: [280, 250, 325, 215, 250, 310, 280, 250, 325, 215, 250, 310],
+      name: "On Leave",
+      data: [5,5,5,5,5,5,5,5,5,5],
     },
   ];
   return (

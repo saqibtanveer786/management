@@ -43,6 +43,21 @@ export const ViewItems = [
   },
 ];
 
+export const AttendenceItems = [
+  {
+    id: uniqueId(),
+    title: "View Attendence",
+    icon: IconLayoutGrid,
+    href: "/dashboard/viewattendence",
+  },
+  {
+    id: uniqueId(),
+    title: "Generate Report",
+    icon: IconLayoutGrid,
+    href: "/dashboard/generateattendencereport",
+  },
+];
+
 export const SubmitfeeItems = [
   {
     id: uniqueId(),

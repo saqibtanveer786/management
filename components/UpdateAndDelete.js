@@ -7,6 +7,7 @@ import {IconTrashX } from '@tabler/icons-react';
 // Importing components
 import Loader from './Loader';
 
+// Deleting the student or family 
 async function deleteItem(url) {
   const deleteItem = await fetch(url, {
     method: 'delete',
@@ -23,7 +24,9 @@ export default function UpdateAndDeleteIcons({id, url, data, setData, setIsLoadi
   return (
     <>
       <div className='absolute -top-2 left-0 flex gap-1'>
+
         <IconEdit size={15} cursor={'pointer'}/>
+
         <IconTrashX size={15} cursor={'pointer'} onClick={async(e)=>{
           e.preventDefault()
           setIsLoading(true)
