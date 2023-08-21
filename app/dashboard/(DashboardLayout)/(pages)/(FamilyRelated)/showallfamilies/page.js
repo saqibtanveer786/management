@@ -4,7 +4,7 @@ import ShowFamilies from '@/components/ShowFamilies';
 export const revalidate = 0
 
 async function fetchFamilies() {
-  const url = `https://management-delta.vercel.app/api/family/getallfamilies`
+  const url = `http://localhost:3000/api/family/getallfamilies`
   const families = await fetch(url,{
     cache: 'no-store',
     method: 'post',

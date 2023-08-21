@@ -1,209 +1,239 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+
 import Link from 'next/link'
+
+// Importing hooks
 import { usePathname } from "next/navigation";
 
 // Importing from material ui
-import { Box, Divider, Grid, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, ListItemButton, ListItemIcon, ListItemText, TextField } from '@mui/material'
+import { Box, Grid, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, ListItemButton, TextField, ListItemText } from '@mui/material'
 
 // Importing components
+import BaseCard from '../../../components/shared/BaseCard'
+import Loader from '@/components/Loader';
+import Alerts from '@/components/Alert';
 
-// Grades
+// Grades or classes names
 const Grades = [
-    'G-1',
-    'G-2',
-    'G-3',
-    'G-4',
-    'G-5',
-    'G-6',
-    'G-7',
-    'G-8',
-    'G-9',
-    'G-10',
-]
-
-// dummy student data
-const data = [
-  {
-    Id: '001',
-    Name: 'Saqib',
-    Status: "Present"
-  },
-  {
-    Id: '002',
-    Name: 'Saqib',
-    Status: "Present"
-  },
-  {
-    Id: '003',
-    Name: 'Saqib',
-    Status: "Absent"
-  },
-  {
-    Id: '004',
-    Name: 'Saqib',
-    Status: "Present"
-  },
-  {
-    Id: '005',
-    Name: 'Saqib',
-    Status: "Leave"
-  },
-  {
-    Id: '006',
-    Name: 'Saqib',
-    Status: "Present"
-  },
+    'Grade1',
+    'Grade2',
+    'Grade3',
+    'Grade4',
+    'Grade5',
+    'Grade6',
+    'Grade7',
+    'Grade8',
+    'Grade9',
+    'Grade10',
 ]
 
 export default function Vewattendence() {
-  const pathname = usePathname();
-  const pathDirect = pathname;
-    let [dateState, setDateState] = useState()
-    const [type, setType] = useState('text')
-    // const minute = 1000 * 60;
-    // const hour = minute * 60;
-    // const day = hour * 24;
-    // const month = day * 30;
-    // const year = day * 365;
-    // const date = new Date()
-    console.log(dateState)
-  return (
-    <Grid container spacing={2}>
-        <Grid sx={{paddingTop: 0, paddingLeft: 0}} xs={12}>
-          <Typography
-            fontSize={30}
-            textAlign={'center'}
-            marginTop={2}
-            marginBottom={5}
-          >
-            Student Attendence
-            </Typography>
-            <TableContainer
-                    sx={{
-                           sm:{ width: '100vw',},
-                           xs: {width: '95%'},
-                            paddingInlineStart: '10px',
-                            margin: '2px'
-                    }}>
-                <Table>
-                    <TableHead>
-                        <TableRow className='flex gap-1 mb-4'>
-                            {Grades.map((Grade, index)=>{
-                                return(
-                                    // <Link href={'/dashboard/viewattendence'} className='w-20 mt-2 mb-2 border-sky-500 border rounded-full grid place-items-center' key={index}> 
-                                    //     <Typography color="textSecondary" fontSize={15} variant="h6">
-                                    //         {Grade}
-                                    //     </Typography>
-                                    // </Link>
-                                    <TableCell
-                                    key={index}
-                                    padding={0}
-                                    sx={{
-                                      display: 'flex',
-                                      padding: '0px'
-                                    }}
-                                    >
-                                    
-                                  <ListItemButton
-                                  component={Link}
-                                  href={'#'}
-                                  selected={pathDirect === '#'}
-                                  sx={{backgroundColor: 'skyblue', borderRadius: '50px', textAlign: 'center', paddingBlock: '5px'}}
-                                  // target={item.external ? "_blank" : ""}
-                                >
-                                  <ListItemText sx={{
-                                    width: '74px'
-                                    
-                                }}>
-                                    <>Grade {index}</>
-                                  </ListItemText>
-                                </ListItemButton>
-                                </TableCell>
-                                )
-                            })}
-                        </TableRow>
-                    </TableHead>
-                </Table>
-        </TableContainer>
-        <Box paddingInline={2}>
-                        {/* <input className='border-gray-800 border-2 p-2' type={type} onFocus={(e)=>{e.preventDefault();setType('date')}} placeholder='Enter Date' value={dateState||''} onChange={(e)=>{
-                            e.preventDefault()
-                            setDateState(e.target.value)
-                        }}/> */}
-                  <TextField
-                      id="name-basic"
-                      value={dateState||''}
-                      type='date'
-                      variant="outlined"
-                      onChange={(e)=>{setDateState(e.target.value)}}
-                  />
-           </Box>
-        <TableContainer
-            sx={{
-              width: {
-                xs: "100%",
-                paddingInlineStart: '20px'
-                // sm: "100vw",
-              },
-              position: 'relative'
-              // overflowY: 'scroll',
-              // overflowX: 'scroll'
+    // initializing use pathhook
+    const pathname = usePathname();
+    const pathDirect = pathname;
 
-            }}
-      >
-        <Table
-              aria-label="simple table"
-              sx={{
-                whiteSpace: "nowrap",
-                mt: 2,
-              }}
+    // initializing date
+    const date = new Date()
+
+    // making states
+    const [isLoading, setIsLoading] = useState(false)
+    const [loaderMessage, setLoaderMessage] = useState('Getting Attendence')
+    const [showAlert, setShowAlert] = useState(false)
+    const [alertSeverity, setAlertSeverity] = useState('success')
+    const [alertMessage, setAlertMessage] = useState('')
+    const [currentDate, setCurrentDate ] = useState(date.toISOString().split('T')[0])
+    const [currentGrade, setCurrentGrade] = useState('Grade8')
+    const [data, setData] = useState()
+
+    // Function to get data
+    async function getData() {
+      const url = `http://localhost:3000/api/attendence/getattendence?class=${currentGrade}&date=${currentDate}`
+      setIsLoading(true)
+      const response = await fetch(url, {
+        cache: 'no-store',
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      })
+      const jsonResponse = await response.json()
+      setIsLoading(false)
+      if(response.ok){
+        console.log(jsonResponse)
+        setData(jsonResponse.students)
+      }
+      if(!jsonResponse.students){
+          setAlertMessage(`Nothing founded for ${currentGrade} at date ${currentDate}`)
+          setShowAlert(true)
+          setTimeout(() => {
+            setShowAlert(false)
+          }, 1000);
+      }
+    }
+
+    useEffect(()=>{
+      !data&&getData()
+    },[])
+    
+  return (
+   <BaseCard> 
+    <Grid container spacing={2}>
+        <Grid item xs={12}>
+          {/* Top heading */}
+            <Typography
+              fontSize={30}
+              textAlign={'center'}
+              marginTop={2}
+              marginBottom={5}
+            >
+              Student Attendence
+              </Typography>
+
+          {/* Grades List */}
+              <TableContainer
+                      sx={{
+                              // paddingInline: '10px',
+                              margin: '2px',
+                      }}>
+                  <Table>
+                  <TableHead>
+                      <TableRow className='flex gap-1 mb-4'>
+                          {Grades.map((Grade, index)=>{
+                              return(
+                                  <TableCell
+                                  key={index}
+                                  padding={0}
+                                  sx={{
+                                    display: 'flex',
+                                    padding: '0px'
+                                  }}
+                                  >
+                                  
+                                <ListItemButton
+                                component={Link}
+                                href={'#'}
+                                selected={pathDirect === '#'}
+                                sx={{borderRadius: '50px', textAlign: 'center', paddingBlock: '0px'}}
+                                // target={item.external ? "_blank" : ""}
+                                onClick={(e)=>{
+                                e.preventDefault()
+                                getData()
+                                }}
+                              >
+                                <ListItemText sx={{
+                                  width: '70px'
+                                  
+                              }}>
+                                  <>{Grade}</>
+                                </ListItemText>
+                              </ListItemButton>
+                              </TableCell>
+                              )
+                          })}
+                      </TableRow>
+                  </TableHead>
+                </Table>
+          </TableContainer>
+
+          {/* Date Input */}
+            <Box paddingInline={2}>
+                      <TextField
+                          id="name-basic"
+                          value={currentDate||''}
+                          type='date'
+                          variant="outlined"
+                          onChange={(e)=>{
+                            e.preventDefault()
+                            const date = new Date(e.target.value)
+                            setCurrentDate(date.toISOString().split('T')[0])
+                            console.log('dsfjsdjf',currentDate)
+                          }}
+                      />
+              </Box>
+          
+          {/* Current Grade Heading */}
+            <Typography
+              fontSize={15}
+              textAlign={'left'}
+              paddingLeft={5}
+              marginTop={'15px'}
+              marginBottom={'5px'}
+              color={'03c9d7'}
+            >
+              {currentGrade}
+              </Typography>
+
+          {/* Loader and Alert*/}
+          <Loader isLoading={isLoading} message={loaderMessage}/>
+          <Alerts showAlert={showAlert} message={alertMessage} severity={alertSeverity}/>
+
+            {/* Showing Attendence */}
+          {data&&<TableContainer
+                sx={{
+                  width: {
+                    xs: "100%",
+                    // sm: "100vw",
+                  },
+                  position: 'relative'
+                  // overflowY: 'scroll',
+                  // overflowX: 'scroll'
+
+                }}
         >
-          <TableHead>
-            <TableRow>
-                <TableCell width={'10px'} align='center'>
-                  <Typography color="textSecondary" fontSize={20} variant="h6">
-                      Id
-                  </Typography>
-                </TableCell>
-                <TableCell width={'10px'} align='center'>
-                  <Typography color="textSecondary" fontSize={20} variant="h6">
-                      Name
-                  </Typography>
-                </TableCell>
-                <TableCell width={'20px'} align='center'>
-                  <Typography color="textSecondary" fontSize={20} variant="h6">
-                      Status
-                  </Typography>
-                </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {data&&data.map((student)=>{
-              return(
-                <TableRow key={student.Id}>
-                  <TableCell align='center'>
-                    <Typography fontSize="15px" fontWeight={500}>
-                       {student.Id} 
+          <Table
+                aria-label="simple table"
+                sx={{
+                  whiteSpace: "nowrap",
+                  mt: 2,
+                }}
+          >
+            <TableHead>
+              <TableRow>
+                  <TableCell width={'10px'} align='center' sx={{paddingTop: 0}}>
+                    <Typography color="textSecondary" fontSize={20} variant="h6">
+                        Id
                     </Typography>
                   </TableCell>
-                  <TableCell align='center'>
-                    <Typography fontSize="15px" fontWeight={500}>
-                       {student.Name} 
+                  <TableCell width={'10px'} align='center' sx={{paddingTop: 0}}>
+                    <Typography color="textSecondary" fontSize={20} variant="h6">
+                        Name
                     </Typography>
                   </TableCell>
-                  <TableCell align='center'>
-                    <Typography fontSize="15px" fontWeight={500} color={student.Status==='Present'?'green': student.Status==='Absent'? 'red': 'wheat'}>
-                       {student.Status} 
+                  <TableCell width={'20px'} align='center' sx={{paddingTop: 0}}>
+                    <Typography color="textSecondary" fontSize={20} variant="h6">
+                        Status
                     </Typography>
                   </TableCell>
-                </TableRow>
-              )
-            })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-        </Grid>
-    </Grid>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {data&&data.map((student, index)=>{
+                return(
+                  <TableRow key={index}>
+                    <TableCell align='center'>
+                      <Typography fontSize="15px" fontWeight={500}>
+                        {student.Id} 
+                      </Typography>
+                    </TableCell>
+                    <TableCell align='center'>
+                      <Typography fontSize="15px" fontWeight={500}>
+                        {student.Name} 
+                      </Typography>
+                    </TableCell>
+                    <TableCell align='center'>
+                      <Typography fontSize="15px" fontWeight={500} color={student.Status==='present'?'green': student.Status==='absent'? 'red': 'wheat'}>
+                        {student.Status} 
+                      </Typography>
+                    </TableCell>
+                  </TableRow>
+                )
+              })}
+            </TableBody>
+          </Table>
+        </TableContainer>}
+          </Grid>
+      </Grid>
+      </BaseCard>
   )
 }

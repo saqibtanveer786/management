@@ -9,10 +9,22 @@ export async function POST() {
     await client.connect();
     const db = client.db('fee_management')
     const collection = db.collection('families')
+    const studentsCollection = db.collection('students')
 
-    // Getting all students
-    const getAllfamilies = await collection.find().toArray()
-    return NextResponse.json({families: getAllfamilies}, {status: 200})
+    // Getting all families
+      const getAllFamilies = await collection.find().toArray();
+
+      for (const family of getAllFamilies) {
+        const studentForSameFcode = await studentsCollection.find({ Fcode: family.Fcode }).toArray();
+
+        let calculatedRemaining = 0;
+        for (const student of studentForSameFcode) {
+          calculatedRemaining += student.Remainings;
+        }
+
+        family.Remainings = calculatedRemaining;
+      }
+    return NextResponse.json({families: getAllFamilies}, {status: 200})
   } catch(error){
     const Error = "Inter Server Error"
     console.log(error)

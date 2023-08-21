@@ -9,15 +9,20 @@ import Loader from './Loader';
 
 // Deleting the student or family 
 async function deleteItem(url) {
-  const deleteItem = await fetch(url, {
-    method: 'delete',
-    headers: {
-      'Content-Type': 'application/json',
-      "Access-Control-Allow-Origin": "*" ,
-    }
-  })
-  const jsonResponse = await deleteItem.json()
-  return true
+  try {
+    const deleteItem = await fetch(url, {
+      method: 'delete',
+      headers: {
+        'Content-Type': 'application/json',
+        "Access-Control-Allow-Origin": "*" ,
+      }
+    })
+    const jsonResponse = await deleteItem.json()
+    return true
+  } catch (error) {
+    return false
+  }
+  
 }
 
 export default function UpdateAndDeleteIcons({id, url, data, setData, setIsLoading}) {

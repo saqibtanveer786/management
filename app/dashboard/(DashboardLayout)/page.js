@@ -9,7 +9,7 @@ import { Grid, Box} from '@mui/material';
 // components
 
 // import MonthlyEarnings from './components/dashboard/MonthlyEarnings';
-import SalesOverview from './components/dashboard/SalesOverview';
+import AttendenceOverView from '../../../components/AttendenceOverView';
 import ShowFamilies from '../../../components/ShowFamilies';
 import ShowStudents from '@/components/ShowStudents';
 import Alerts from '@/components/Alert';
@@ -29,9 +29,10 @@ async function fetchFamilies() {
   return jsonFamilies.families
 }
 
+// Getting Students 
 async function fetchStudents() {
   const url = `https://management-delta.vercel.app/api/getallstudents`
-  const families = await fetch(url,{
+  const students = await fetch(url,{
     cache: 'no-store',
     method: 'Post',
     headers: {
@@ -39,12 +40,39 @@ async function fetchStudents() {
       "Access-Control-Allow-Origin": "*" ,
     }
   })
-  const jsonFamilies = await families.json()
-  return jsonFamilies.students
+  const jsonStudents = await students.json()
+  return jsonStudents.students
 }
 
+// Getting Student Attendence Data 
+async function getAttendenceData(date) {
+  let currentDate = date.toISOString().split('T')[0]
+  console.log(currentDate)
+  const url = `http://localhost:3000/api/attendence/getattendence?date=${currentDate}&forchart=yes`
+  const attendenceData = await fetch(url,{
+    cache: 'no-store',
+    method: 'Post',
+    headers: {
+      'content-type': 'application/json',
+      "Access-Control-Allow-Origin": "*" ,
+    }
+  })
+  const jsonAttendenceData = await attendenceData.json()
+
+  const lengths = {}
+  for (const item in jsonAttendenceData) {
+      if (jsonAttendenceData.hasOwnProperty(item)) {
+        console.log(item)
+        lengths[item] = jsonAttendenceData[item].map(subItem => Array.isArray(subItem)? subItem.length: 0)
+      }
+  }
+
+  return lengths
+}
 
 export default async function page() {
+  let date = new Date()
+  const attendenceData = await getAttendenceData(date)
   const families = await fetchFamilies()
   const students = await fetchStudents()
   return (
@@ -52,7 +80,7 @@ export default async function page() {
     <Box mt={3}>
       <Grid container spacing={3}>
         <Grid item xs={12} lg={12}>
-          <SalesOverview />
+          <AttendenceOverView data={attendenceData}/>
         </Grid>
         {/* ------------------------- row 1 ------------------------- */}
         <Grid item xs={12} lg={12}>

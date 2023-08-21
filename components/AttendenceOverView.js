@@ -1,11 +1,17 @@
 "use client"
-import React from "react";
+import React, { useState } from "react";
 import { useTheme } from "@mui/material/styles";
 import dynamic from "next/dynamic";
-import BaseCard from "../shared/DashboardCard";
+import BaseCard from "../app/dashboard/(DashboardLayout)/components/shared/DashboardCard";
+import { Button } from "@mui/material";
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
-const SalesOverview = () => {
+const AttendenceOverView = ({data}) => {
+  // defining states
+  const [attendenceData, setAttendenceData] = useState(data)
+
+
+  // Importing stuff from theme
   const theme = useTheme();
   const success = theme.palette.success.main;
   const error = theme.palette.error.main;
@@ -99,28 +105,29 @@ const SalesOverview = () => {
   };
   const seriessalesoverview = [
     {
-      name: "Presents",
-      data: [47, 47, 47, 47, 47, 47, 47, 47, 47, 47],
+      Status: "Presents",
+      data: [36,36,36,36,36,36,36,36,36,36,],
     },
     {
-      name: "Apsents",
-      data: [9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
+      Status: "Apsents",
+      data: [7,15,12,25,14,5,8,23,10,9,],
     },
     {
-      name: "On Leave",
-      data: [5,5,5,5,5,5,5,5,5,5],
+      Status: "On Leave",
+      data: [5,10,30,5,7,9,8,5,9,7,],
     },
   ];
   return (
-    <BaseCard title="Families Overview">
+    <BaseCard title="Attendence Overview">
       <Chart
         options={optionssalesoverview}
         series={seriessalesoverview}
         type="bar"
         height="295px"
+        
       />
     </BaseCard>
   );
 };
 
-export default SalesOverview;
+export default AttendenceOverView;

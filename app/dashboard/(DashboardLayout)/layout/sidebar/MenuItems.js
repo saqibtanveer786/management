@@ -52,9 +52,9 @@ export const AttendenceItems = [
   },
   {
     id: uniqueId(),
-    title: "Generate Report",
+    title: "Mark Attendence",
     icon: IconLayoutGrid,
-    href: "/dashboard/generateattendencereport",
+    href: "/dashboard/markattendence",
   },
 ];
 
