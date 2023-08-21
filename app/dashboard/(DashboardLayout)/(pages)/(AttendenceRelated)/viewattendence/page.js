@@ -48,7 +48,7 @@ export default function Vewattendence() {
 
     // Function to get data
     async function getData() {
-      const url = `http://localhost:3000/api/attendence/getattendence?class=${currentGrade}&date=${currentDate}`
+      const url = `https://management-delta.vercel.app/api/attendence/getattendence?class=${currentGrade}&date=${currentDate}`
       setIsLoading(true)
       const response = await fetch(url, {
         cache: 'no-store',

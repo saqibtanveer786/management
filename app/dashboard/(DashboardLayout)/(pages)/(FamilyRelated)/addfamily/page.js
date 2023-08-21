@@ -44,7 +44,7 @@ export default function AddingFamily() {
   // Function for adding family
   async function addFamily(data) {
     setIsLoading(true)
-    const url = `http://localhost:3000/api/family/addfamily`
+    const url = `https://management-delta.vercel.app/api/family/addfamily`
     const response = await fetch(url, {
       method: 'post',
       headers: {

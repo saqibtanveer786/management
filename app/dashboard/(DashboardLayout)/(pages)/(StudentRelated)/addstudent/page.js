@@ -50,7 +50,7 @@ const AddStudent = () => {
 
   // Function for adding student
   async function addStudent() {
-    const url = `http://localhost:3000/api/addstudent`
+    const url = `https://management-delta.vercel.app/api/addstudent`
     setIsLoading(true)
     const response = await fetch(url, {
       cache: 'no-cache',

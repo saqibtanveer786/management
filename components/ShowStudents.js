@@ -130,7 +130,7 @@ export default function ShowStudents({students}) {
             {studentsArray&&studentsArray.map((student) => (
               <TableRow key={student.Id} sx={{position: 'relative'}} id={student.Id}>
                 <TableCell>
-                  <UpdateAndDeleteIcons height={'500px'} id={student.Id} data={studentsArray} setData={setStudentsArray} setIsLoading={setIsLoading} url={`http://localhost:3000/api/deletestudent?id=${student.Id}`}/>
+                  <UpdateAndDeleteIcons height={'500px'} id={student.Id} data={studentsArray} setData={setStudentsArray} setIsLoading={setIsLoading} url={`https://management-delta.vercel.app/api/deletestudent?id=${student.Id}`}/>
                 </TableCell>
                 <TableCell>
                   <Typography fontSize="15px" fontWeight={500}>

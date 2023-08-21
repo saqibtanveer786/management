@@ -22,7 +22,7 @@ function EnterAttendance() {
     const currentDate = date.toISOString().split('T')[0]
     await setSelectedClass(e.target.value);
     console.log('selected class',e.target.value)
-    const url = `http://localhost:3000/api/getallstudents?class=${e.target.value}&date=${currentDate}`
+    const url = `https://management-delta.vercel.app/api/getallstudents?class=${e.target.value}&date=${currentDate}`
     const response = await fetch(url, {
       cache: 'no-store',
       method: 'post',
@@ -56,7 +56,7 @@ function EnterAttendance() {
   
 
   const handleSubmit = async () => {
-    const url = `http://localhost:3000/api/attendence/submitattendence`
+    const url = `https://management-delta.vercel.app/api/attendence/submitattendence`
     const AttendenceArray = Object.values(attendanceData)
     const response = await fetch(url, {
       method: 'post',
