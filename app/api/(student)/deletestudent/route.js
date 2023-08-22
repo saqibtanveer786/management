@@ -30,7 +30,7 @@ export async function DELETE(req) {
       {
       status: 200,
       headers: {
-        'Access-Control-Allow-Origin': true,
+        'Access-Control-Allow-Origin': 'http://localhost:3000',
         'Access-Control-Allow-Methods': 'GET,OPTIONS,PATCH,DELETE,POST,PUT',
         }
       }
