@@ -62,7 +62,6 @@ async function getAttendenceData(date) {
   const lengths = {}
   for (const item in jsonAttendenceData) {
       if (jsonAttendenceData.hasOwnProperty(item)) {
-        console.log(item)
         lengths[item] = jsonAttendenceData[item].map(subItem => Array.isArray(subItem)? subItem.length: 0)
       }
   }

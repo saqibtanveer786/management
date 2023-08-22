@@ -22,9 +22,22 @@ export async function DELETE(req) {
 
     // Deleting the student
     const deleteStudent = await collection.deleteOne({Id})
-    return NextResponse.json({message: "Student has successfully deleted",data: deleteStudent}, {status: 200})
+    return NextResponse.json(
+      {
+        message: "Student has successfully deleted",
+        data: deleteStudent
+      },
+      {
+      status: 200,
+      headers: {
+        'Access-Control-Allow-Origin': true,
+        'Access-Control-Allow-Methods': 'GET,OPTIONS,PATCH,DELETE,POST,PUT',
+        }
+      }
+    )
   } catch(error){
     const Error = "Inter Server Error"
+    console.log(error)
     return NextResponse.json({Error}, {status: 404})
   }
   finally{

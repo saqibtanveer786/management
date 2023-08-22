@@ -88,6 +88,26 @@ export async function POST(req) {
         grade10Onleave,
       ]
 
+
+        //       const forChart = searchParams.get("forchart");
+
+        // if (forChart && date) {
+        //   const statusTypes = ['present', 'absent', 'onleave'];
+        //   const gradeTypes = ['Grade1', 'Grade2', 'Grade3', 'Grade4', 'Grade5', 'Grade6', 'Grade7', 'Grade8', 'Grade9', 'Grade10'];
+
+        //   const data = {};
+
+        //   for (const grade of gradeTypes) {
+        //     data[grade] = {};
+        //     for (const status of statusTypes) {
+        //       const count = await collection.countDocuments({ Date: date, Status: status, Class: grade });
+        //       data[grade][status] = count;
+        //     }
+        //   }
+
+        //   return NextResponse.json(data, { status: 200 });
+        // }
+
         
       return NextResponse.json({presents, absents, onleave}, {status: 200})
     }
