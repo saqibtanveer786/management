@@ -31,6 +31,9 @@ import Loader from '@/components/Loader';
 import { parseInt } from 'lodash';
 import Alerts from '@/components/Alert';
 
+// Import server actions
+import { addStudent } from '@/serveractions/serverAction';
+
 
 // Main function
 const AddStudent = () => {
@@ -49,39 +52,39 @@ const AddStudent = () => {
 
 
   // Function for adding student
-  async function addStudent() {
-    const url = `https://management-delta.vercel.app/api/addstudent`
-    setIsLoading(true)
-    const response = await fetch(url, {
-      cache: 'no-cache',
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json',
-        "Access-Control-Allow-Origin": "*" ,
-      },
-      body: JSON.stringify(data)
-    })
-    setIsLoading(false)
-    console.log(response)
-    const jsonResponse = await response.json()
-    setData({})
-    if(response.ok){
-      setShowAlert(true)
-      setAlertMessage(jsonResponse.message)
-      setAlertSeverity('success')
-      setTimeout(() => {
-          setShowAlert(false)
-      }, 2000);
-    }
-    if(!response.ok){
-      setShowAlert(true)
-      setAlertMessage(jsonResponse.message)
-      setAlertSeverity('error')
-      setTimeout(() => {
-          setShowAlert(false)
-      }, 2000);
-    }
-  }
+  // async function addStudent() {
+  //   const url = `https://management-delta.vercel.app/api/addstudent`
+  //   setIsLoading(true)
+  //   const response = await fetch(url, {
+  //     cache: 'no-cache',
+  //     method: 'post',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       "Access-Control-Allow-Origin": "*" ,
+  //     },
+  //     body: JSON.stringify(data)
+  //   })
+  //   setIsLoading(false)
+  //   console.log(response)
+  //   const jsonResponse = await response.json()
+  //   setData({})
+  //   if(response.ok){
+  //     setShowAlert(true)
+  //     setAlertMessage(jsonResponse.message)
+  //     setAlertSeverity('success')
+  //     setTimeout(() => {
+  //         setShowAlert(false)
+  //     }, 2000);
+  //   }
+  //   if(!response.ok){
+  //     setShowAlert(true)
+  //     setAlertMessage(jsonResponse.message)
+  //     setAlertSeverity('error')
+  //     setTimeout(() => {
+  //         setShowAlert(false)
+  //     }, 2000);
+  //   }
+  // }
 
     return (
       <>
@@ -146,7 +149,7 @@ const AddStudent = () => {
             <br />
             <Button onClick={(e)=>{
               e.preventDefault()
-              addStudent()
+              addStudent(data)
             }}>
               Submit
             </Button>

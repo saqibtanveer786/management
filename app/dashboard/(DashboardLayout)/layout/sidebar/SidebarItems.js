@@ -1,5 +1,5 @@
 import React from "react";
-import {HomeItems, AddmissionItems, ViewItems,AttendenceItems, SubmitfeeItems} from "./MenuItems";
+import { HomeItems, AddmissionItems, ViewItems, AttendenceItems, SubmitfeeItems } from "./MenuItems";
 import { usePathname } from "next/navigation";
 import { Box, List, Typography } from "@mui/material";
 import NavItem from "./NavItem";
@@ -11,11 +11,11 @@ import {
 const SidebarItems = ({ toggleMobileSidebar }) => {
   const pathname = usePathname();
   const pathDirect = pathname;
-  
+
   return (
     <Box sx={{ px: 2 }}>
       <List sx={{ pt: 0 }} component="div">
-        <Typography sx={{paddingBlock: 2}}>
+        <Typography sx={{ paddingBlock: 2 }}>
           Home
         </Typography>
         {HomeItems.map((item) => {
@@ -26,19 +26,19 @@ const SidebarItems = ({ toggleMobileSidebar }) => {
           //   // {/********If Sub Menu**********/}
           //   /* eslint no-else-return: "off" */
           // } else {
-            return (
-              <>
+          return (
+            <>
               <NavItem
-                item={item}
                 key={item.id}
+                item={item}
                 pathDirect={pathDirect}
                 onClick={toggleMobileSidebar}
               />
-              </>
-            );
-          
+            </>
+          );
+
         })}
-        <Typography sx={{paddingBlock: 2}}>
+        <Typography sx={{ paddingBlock: 2 }}>
           Admission
         </Typography>
         {AddmissionItems.map((item) => {
@@ -49,19 +49,19 @@ const SidebarItems = ({ toggleMobileSidebar }) => {
           //   // {/********If Sub Menu**********/}
           //   /* eslint no-else-return: "off" */
           // } else {
-            return (
-              <>
+          return (
+            <>
               <NavItem
-                item={item}
                 key={item.id}
+                item={item}
                 pathDirect={pathDirect}
                 onClick={toggleMobileSidebar}
               />
-              </>
-            );
-          
+            </>
+          );
+
         })}
-        <Typography sx={{paddingBlock: 2}}>
+        <Typography sx={{ paddingBlock: 2 }}>
           View
         </Typography>
         {ViewItems.map((item) => {
@@ -72,19 +72,19 @@ const SidebarItems = ({ toggleMobileSidebar }) => {
           //   // {/********If Sub Menu**********/}
           //   /* eslint no-else-return: "off" */
           // } else {
-            return (
-              <>
+          return (
+            <>
               <NavItem
-                item={item}
                 key={item.id}
+                item={item}
                 pathDirect={pathDirect}
                 onClick={toggleMobileSidebar}
               />
-              </>
-            );
-          
+            </>
+          );
+
         })}
-        <Typography sx={{paddingBlock: 2}}>
+        <Typography sx={{ paddingBlock: 2 }}>
           Attendence
         </Typography>
         {AttendenceItems.map((item) => {
@@ -95,19 +95,19 @@ const SidebarItems = ({ toggleMobileSidebar }) => {
           //   // {/********If Sub Menu**********/}
           //   /* eslint no-else-return: "off" */
           // } else {
-            return (
-              <>
+          return (
+            <>
               <NavItem
-                item={item}
                 key={item.id}
+                item={item}
                 pathDirect={pathDirect}
                 onClick={toggleMobileSidebar}
               />
-              </>
-            );
-          
+            </>
+          );
+
         })}
-        <Typography sx={{paddingBlock: 2}}>
+        <Typography sx={{ paddingBlock: 2 }}>
           Submit
         </Typography>
         {SubmitfeeItems.map((item) => {
@@ -118,17 +118,17 @@ const SidebarItems = ({ toggleMobileSidebar }) => {
           //   // {/********If Sub Menu**********/}
           //   /* eslint no-else-return: "off" */
           // } else {
-            return (
-              <>
+          return (
+            <>
               <NavItem
-                item={item}
                 key={item.id}
+                item={item}
                 pathDirect={pathDirect}
                 onClick={toggleMobileSidebar}
               />
-              </>
-            );
-          
+            </>
+          );
+
         })}
       </List>
     </Box>

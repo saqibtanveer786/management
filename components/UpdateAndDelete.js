@@ -1,29 +1,14 @@
 import React, { useState } from 'react'
 
+// Import server actions
+import { deleteItem } from '@/serveractions/serverAction';
+
 // Importing Icons
 import {IconEdit } from '@tabler/icons-react';
 import {IconTrashX } from '@tabler/icons-react';
 
 // Importing components
 import Loader from './Loader';
-
-// Deleting the student or family 
-async function deleteItem(url) {
-  try {
-    const deleteItem = await fetch(url, {
-      method: 'delete',
-      headers: {
-        'Content-Type': 'application/json',
-        "Access-Control-Allow-Origin": "*" ,
-      }
-    })
-    const jsonResponse = await deleteItem.json()
-    return true
-  } catch (error) {
-    return false
-  }
-  
-}
 
 export default function UpdateAndDeleteIcons({id, url, data, setData, setIsLoading}) {
   return (

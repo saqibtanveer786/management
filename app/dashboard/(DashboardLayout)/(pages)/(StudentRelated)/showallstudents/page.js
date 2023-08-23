@@ -5,26 +5,13 @@ import ShowStudents from '@/components/ShowStudents';
 
 export const revalidate = 0
 
-// Fetching students function
-async function getAllStudents() {
-  const url = `https://management-delta.vercel.app/api/getallstudents`
-  const students = await fetch(url, {
-    next: { revalidate: 0 },
-    cache: 'no-store',
-    method: 'post',
-    headers: {
-      "Content-Type": 'application/json',
-      "Access-Control-Allow-Origin": "*" ,
-    }
-  })
-  const jsonStudents = await students.json()
-  return jsonStudents.students
-}
+// Importing serverActions
+import { fetchStudents } from '@/serveractions/serverAction';
 
 // Actuall function
 export default async function page() {
-  const students = await getAllStudents()
+  const students = await fetchStudents()
   return (
-    <ShowStudents students={students}/>
+    <ShowStudents students={students} />
   )
 }

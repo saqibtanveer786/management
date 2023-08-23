@@ -1,7 +1,7 @@
 const { MongoClient, ServerApiVersion } = require("mongodb");
 import { NextResponse } from 'next/server'
  
-export async function POST(req) {
+export async function POST(req, res) {
   
   const uri = "mongodb+srv://abdulmohizdesigns:mTG87LJR87HlUDvq@abdulmohizdesigns.enjz22u.mongodb.net/?retryWrites=true&w=majority";
   const client = new MongoClient(uri);
@@ -28,12 +28,8 @@ export async function POST(req) {
            data: addStudent
           },
           {
-            headers: {
-              'Access-Control-Allow-Origin': 'http://localhost:3000',
-              'Access-Control-Allow-Methods': 'GET,OPTIONS,PATCH,DELETE,POST,PUT',
-              },
-              status: 200
-            }
+            status: 200,
+          }
        )
   } catch(error){
     const Error = "Inter Server Error"
