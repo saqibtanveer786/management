@@ -49,7 +49,7 @@ export async function fetchStudents() {
 export async function getAttendenceData(date) {
   let currentDate = date.toISOString().split('T')[0]
   console.log(currentDate)
-  const url = `http://localhost:3000/api/attendence/getattendence?date=${currentDate}&forchart=yes`
+  const url = `https://management-delta.vercel.app/api/attendence/getattendence?date=${currentDate}&forchart=yes`
   const response = await fetch(url, {
     cache: 'force-cache',
     next: {

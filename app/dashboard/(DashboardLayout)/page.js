@@ -10,8 +10,8 @@ import { Grid, Box } from '@mui/material';
 import { getAttendenceData, fetchFamilies, fetchStudents } from "@/serveractions/serverAction"
 
 // import MonthlyEarnings from './components/dashboard/MonthlyEarnings';
-import AttendenceOverView from '../../../components/AttendenceOverView';
-import ShowFamilies from '../../../components/ShowFamilies';
+import AttendenceOverView from '@/components/AttendenceOverView';
+import ShowFamilies from '@/components/ShowFamilies';
 import ShowStudents from '@/components/ShowStudents';
 import Alerts from '@/components/Alert';
 
